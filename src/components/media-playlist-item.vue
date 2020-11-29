@@ -1,0 +1,229 @@
+<template>
+  <div class="media-playlist-item-root">
+    <div class="index-container" v-show="index !== -1">
+      <div class="index">
+        <slot name="index">
+          {{ index }}
+        </slot>
+      </div>
+    </div>
+    <div class="poster-container">
+      <div class="overlay" @click="$emit('selected')">
+        <slot name="overlay-content">
+          Play >
+        </slot>
+      </div>
+      <img :src="poster">
+    </div>
+    <div class="text-content">
+      <div class="title-row">
+        <div class="title">{{ title }}</div>
+      </div>
+      <div class="description-row">
+        <div class="description" v-html="description"></div>
+      </div>
+    </div>
+    <div class="options-container dropdown" :class="{'is-active': showOptions}">
+      <div class="options-btn-container">
+        <slot name="options-btn">
+          <DotsVertical @click.stop.prevent="toggleOptions" class="options-btn"/>
+        </slot>
+      </div>
+      <div class="dropdown-menu">
+        <div class="dropdown-content">
+          <slot name="options">
+            <a class="dropdown-item" @click="$emit('remove'); showOptions = false">
+              Remove from list
+            </a>
+          </slot>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import DotsVertical from 'vue-material-design-icons/DotsVertical'
+
+export default {
+  name: 'media-playlist-item',
+  components: {
+    DotsVertical
+  },
+  props: {
+    title: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String
+    },
+    duration: {
+      type: String
+    },
+    poster: {
+      type: String
+    },
+    index: {
+      type: Number,
+      default: -1
+    },
+    options: {
+      type: Object,
+      default () {
+        return null
+      }
+    }
+  },
+  data () {
+    return {
+      showOptions: false
+    }
+  },
+  watch: {
+    showOptions (v) {
+      if (v) {
+        window.addEventListener('click', this.onWindowClick)
+      } else {
+        window.removeEventListener('click', this.onWindowClick)
+      }
+    }
+  },
+  methods: {
+    toggleOptions () {
+      this.showOptions = !this.showOptions
+      this.$emit('toggle-options', this.showOptions)
+    },
+    onWindowClick () {
+      this.showOptions = false
+    }
+  },
+  mounted () {
+  },
+  beforeDestroy () {
+    window.removeEventListener('click', this.onWindowClick)
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+$item-height: 56px;
+$img-margin-vertical: 2px;
+$img-margin-horizontal: 12px;
+$img-height: calc(#{$item-height} - (2 * #{$img-margin-vertical}));
+
+$bg-color: rgba(120, 120, 120, 1);
+
+$text-color: #1e1e1e;
+$text-color-hover: #0e0e0e;
+
+.media-playlist-item-root {
+  @import '~bulma/sass/utilities/_all.sass';
+  @import '~bulma/sass/base/_all.sass';
+  @import '~bulma/sass/components/dropdown.sass';
+
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  height: var(--item-height, $item-height);
+  background-color: var(--bg-color, $bg-color);
+  border-radius: inherit;
+  color: var(--text-color, $text-color);
+  &:hover {
+    background-color: var(--hover-bg-color, #{lighten($bg-color, 10)});
+  }
+  .index-container {
+    display: flex;
+    flex-direction: column;
+    width: 1em;
+    align-items: center;
+    justify-content: center;
+  }
+  .poster-container {
+    position: relative;
+    border-radius: inherit;
+    margin: var(--img-margin-vertical, $img-margin-vertical) var(--img-margin-horizontal, $img-margin-horizontal);
+    .overlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+    }
+    &:hover {
+      .overlay {
+        display: flex;
+        background-color: rgba(255, 255, 255, 0.6);
+        cursor: pointer;
+      }
+    }
+    img {
+      display: flex;
+      height: var(--img-height, $img-height);
+      width: auto;
+    }
+  }
+  .text-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+    margin-left: 1em;
+    .title-row {
+      display: flex;
+      flex: 1.15;
+      align-items: center;
+      .title {
+        font-weight: bold;
+        font-size: 1em;
+      }
+    }
+    .description-row {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      .description {
+        font-size: 0.9em;
+      }
+    }
+  }
+  .options-container {
+    display: flex;
+    color: var(--options-btn-color, --text-color);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .options-btn {
+      cursor: pointer;
+      &:hover {
+        color: var(--text-color-hover, #{$text-color-hover});
+      }
+    }
+    &.dropdown {
+      .dropdown-menu {
+        top: 70%;
+        right: 0; /* Contain it within the item */
+        left: unset;
+        .dropdown-content {
+          background-color: var(--menu-bg-color, var(--bg-color, #{lighten($bg-color, 5)}));
+          .dropdown-item {
+            background-color: inherit;
+            padding-right: 0;
+            width: initial;
+            color: var(--menu-text-color, inherit);
+            &:hover {
+              background-color: var(--hover-bg-color, #{lighten($bg-color, 10)});
+            }
+          }
+        }
+      }
+    }
+  }
+}
+</style>
