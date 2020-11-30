@@ -26,13 +26,13 @@
     <div class="options-container dropdown" :class="{'is-active': showOptions}">
       <div class="options-btn-container">
         <slot name="options-btn">
-          <DotsVertical @click.stop.prevent="toggleOptions" class="options-btn"/>
+          <DotsVertical class="options-btn" @click="toggleOptions()"/>
         </slot>
       </div>
       <div class="dropdown-menu">
         <div class="dropdown-content">
           <slot name="options">
-            <a class="dropdown-item" @click="$emit('remove'); showOptions = false">
+            <a class="dropdown-item" @click="$emit('remove'); toggleOptions(false)">
               Remove from list
             </a>
           </slot>
@@ -67,12 +67,6 @@ export default {
     index: {
       type: Number,
       default: -1
-    },
-    options: {
-      type: Object,
-      default () {
-        return null
-      }
     }
   },
   data () {
@@ -81,27 +75,35 @@ export default {
     }
   },
   watch: {
-    showOptions (v) {
-      if (v) {
-        window.addEventListener('click', this.onWindowClick)
-      } else {
-        window.removeEventListener('click', this.onWindowClick)
-      }
-    }
   },
   methods: {
-    toggleOptions () {
-      this.showOptions = !this.showOptions
-      this.$emit('toggle-options', this.showOptions)
-    },
-    onWindowClick () {
-      this.showOptions = false
+    toggleOptions (value) {
+      value = value !== undefined ? value : !this.showOptions
+      this.showOptions = value
+      if (this.showOptions) {
+        setTimeout(() => window.addEventListener('click', this.windowOnClick), 0)
+      } else {
+        console.log('Removed listener')
+        window.addEventListener('click', this.windowOnClick)
+      }
+      this.$emit('toggle-options', { vm: this, value })
+    }
+  },
+  beforeMount () {
+    this.windowOnClick = e => {
+      const { target } = e
+      const optionsContainer = this.$el.querySelector('.options-container')
+      if (target.closest('.options-container') !== optionsContainer) {
+        console.log('Removed listener')
+        window.removeEventListener('click', this.windowOnClick)
+        this.showOptions = false
+      }
     }
   },
   mounted () {
   },
   beforeDestroy () {
-    window.removeEventListener('click', this.onWindowClick)
+    window.addEventListener('click', this.windowOnClick)
   }
 }
 </script>
