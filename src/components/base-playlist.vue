@@ -7,7 +7,9 @@
         v-bind="finalDragOpts"
         @start="onStart"
         @end="onEnd"
-        @change="onChange">
+        @change="onChange"
+        @choose="e => $emit('choose', e)"
+        @unchoose="e => $emit('unchoose', e)">
       <transition-group type="transition" name="flip-list">
         <div class="list-group-item" v-for="(key, $index) in localOrder" :key="key">
           <slot name="list-item" :entry="data[key]" :index="$index">
@@ -80,9 +82,11 @@ export default {
     }
   },
   methods: {
-    onStart () {
+    onStart (e) {
+      this.$emit('start', e)
     },
-    onEnd () {
+    onEnd (e) {
+      this.$emit('end', e)
     },
     async onChange (evt) {
       await this.$nextTick()
