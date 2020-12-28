@@ -13,7 +13,9 @@
           Play >
         </slot>
       </div>
-      <img :src="poster">
+      <slot name="poster">
+        <img :src="poster">
+      </slot>
     </div>
     <div class="text-content">
       <div class="title-row">
