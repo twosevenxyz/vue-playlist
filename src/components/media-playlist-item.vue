@@ -163,7 +163,6 @@ $text-color-hover: #0e0e0e;
       .overlay {
         display: flex;
         background-color: rgba(255, 255, 255, 0.6);
-        cursor: pointer;
       }
     }
     img {
