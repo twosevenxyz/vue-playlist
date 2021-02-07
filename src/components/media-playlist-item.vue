@@ -7,6 +7,11 @@
         </slot>
       </div>
     </div>
+    <div class="drag-handle-container handle is-flex">
+      <slot name="drag-handle">
+        <DragVertical class="drag-handle" />
+      </slot>
+    </div>
     <div class="poster-container">
       <div class="overlay" @click="$emit('selected')">
         <slot name="overlay-content">
@@ -46,11 +51,13 @@
 
 <script>
 import DotsVertical from 'vue-material-design-icons/DotsVertical'
+import DragVertical from 'vue-material-design-icons/DragVertical'
 
 export default {
   name: 'media-playlist-item',
   components: {
-    DotsVertical
+    DotsVertical,
+    DragVertical
   },
   props: {
     title: {
@@ -113,7 +120,7 @@ export default {
 <style lang="scss" scoped>
 $item-height: 56px;
 $img-margin-vertical: 2px;
-$img-margin-horizontal: 12px;
+$img-margin-horizontal: 0px;
 $img-height: calc(#{$item-height} - (2 * #{$img-margin-vertical}));
 
 $bg-color: rgba(120, 120, 120, 1);
@@ -194,6 +201,9 @@ $text-color-hover: #0e0e0e;
         font-size: 0.9em;
       }
     }
+  }
+  .drag-handle-container {
+    align-self: center;
   }
   .options-container {
     display: flex;

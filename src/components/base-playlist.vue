@@ -31,7 +31,8 @@ const defaultDragOpts = () => {
     disabled: false,
     ghostClass: 'ghost',
     scrollSensitivity: 30,
-    bubbleScroll: true
+    bubbleScroll: true,
+    handle: '.handle'
   }
 }
 
@@ -114,9 +115,16 @@ export default {
     display: inline-block;
   }
   .list-group-item {
-    cursor: move;
     border: thin solid lightgrey;
     border-radius: 2px;
+    ::v-deep .drag-handle-container {
+      cursor: grab;
+    }
   }
+      .sortable-chosen {
+        ::v-deep .drag-handle-container {
+          cursor: grabbing !important;
+        }
+      }
 }
 </style>
