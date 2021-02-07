@@ -7,7 +7,7 @@
         </slot>
       </div>
     </div>
-    <div class="drag-handle-container handle is-flex">
+    <div class="drag-handle-container handle">
       <slot name="drag-handle">
         <DragVertical class="drag-handle" />
       </slot>
@@ -203,7 +203,10 @@ $text-color-hover: #0e0e0e;
     }
   }
   .drag-handle-container {
-    align-self: center;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
   }
   .options-container {
     display: flex;

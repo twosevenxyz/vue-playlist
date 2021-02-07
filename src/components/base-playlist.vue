@@ -118,6 +118,8 @@ export default {
     border: thin solid lightgrey;
     border-radius: 2px;
     ::v-deep .drag-handle-container {
+      cursor: hand;
+      cursor: move;
       cursor: grab;
     }
   }
