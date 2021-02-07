@@ -13,7 +13,7 @@
       </slot>
     </div>
     <div class="poster-container">
-      <div class="overlay" @click="$emit('selected')">
+      <div class="overlay">
         <slot name="overlay-content">
           Play >
         </slot>
