@@ -119,9 +119,9 @@ export default {
 
 <style lang="scss" scoped>
 $item-height: 56px;
-$img-margin-vertical: 2px;
+$padding-vertical: 8px;
 $img-margin-horizontal: 0px;
-$img-height: calc(#{$item-height} - (2 * #{$img-margin-vertical}));
+$img-height: calc(#{$item-height} - (2 * #{$padding-vertical}));
 
 $bg-color: rgba(120, 120, 120, 1);
 
@@ -140,6 +140,7 @@ $text-color-hover: #0e0e0e;
   background-color: var(--bg-color, $bg-color);
   border-radius: inherit;
   color: var(--text-color, $text-color);
+  padding: var(--item-padding-vertical, #{$padding-vertical}) var(--item-padding-horizontal, 0px);
   &:hover {
     background-color: var(--hover-bg-color, #{lighten($bg-color, 10)});
   }
@@ -153,7 +154,7 @@ $text-color-hover: #0e0e0e;
   .poster-container {
     position: relative;
     border-radius: inherit;
-    margin: var(--img-margin-vertical, $img-margin-vertical) var(--img-margin-horizontal, $img-margin-horizontal);
+    height: 100%;
     .overlay {
       position: absolute;
       left: 0;
@@ -173,8 +174,8 @@ $text-color-hover: #0e0e0e;
       }
     }
     img {
-      display: flex;
-      height: var(--img-height, $img-height);
+      display: block;
+      height: 100%;
       width: auto;
     }
   }
