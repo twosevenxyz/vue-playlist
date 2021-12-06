@@ -50,8 +50,8 @@
 </template>
 
 <script>
-import DotsVertical from 'vue-material-design-icons/DotsVertical'
-import DragVertical from 'vue-material-design-icons/DragVertical'
+import DotsVertical from 'vue-material-design-icons/DotsVertical.vue'
+import DragVertical from 'vue-material-design-icons/DragVertical.vue'
 
 export default {
   name: 'media-playlist-item',
