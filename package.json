@@ -1,6 +1,6 @@
 {
   "name": "@gurupras/vue-playlist",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "type": "module",
   "module": "dist/playlist.js",
   "main": "dist/playlist.cjs",
