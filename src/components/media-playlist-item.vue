@@ -9,7 +9,7 @@
     </div>
     <div class="drag-handle-container handle">
       <slot name="drag-handle">
-        <DragVertical class="drag-handle" />
+        <i-mdi-drag-vertical class="drag-handle" />
       </slot>
     </div>
     <div class="poster-container">
@@ -33,7 +33,7 @@
     <div class="options-container dropdown" :class="{'is-active': showOptions}">
       <div class="options-btn-container">
         <slot name="options-btn">
-          <DotsVertical class="options-btn" @click="toggleOptions()"/>
+          <i-mdi-dots-vertical class="options-btn" @click="toggleOptions()"/>
         </slot>
       </div>
       <div class="dropdown-menu">
@@ -50,14 +50,9 @@
 </template>
 
 <script>
-import DotsVertical from 'vue-material-design-icons/DotsVertical.vue'
-import DragVertical from 'vue-material-design-icons/DragVertical.vue'
-
 export default {
   name: 'media-playlist-item',
   components: {
-    DotsVertical,
-    DragVertical
   },
   props: {
     title: {
@@ -129,9 +124,9 @@ $text-color: #1e1e1e;
 $text-color-hover: #0e0e0e;
 
 .media-playlist-item-root {
-  @import '~bulma/sass/utilities/_all.sass';
-  @import '~bulma/sass/base/_all.sass';
-  @import '~bulma/sass/components/dropdown.sass';
+  @import 'bulma/sass/utilities/_all.sass';
+  @import 'bulma/sass/base/_all.sass';
+  @import 'bulma/sass/components/dropdown.sass';
 
   display: flex;
   flex-direction: row;
