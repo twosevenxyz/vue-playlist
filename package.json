@@ -43,8 +43,9 @@
     "bulma": "^0.9.4"
   },
   "exports": {
-    ".": "./dist/playlist.js",
     "./style.css": "./dist/style.css",
-    "./src/*": "./src/*"
+    "./src/components/base-playlist.vue": "./src/components/base-playlist.vue",
+    "./src/components/media-playlist-item.vue": "./src/components/media-playlist-item.vue",
+    ".": "./dist/playlist.js"
   }
 }
