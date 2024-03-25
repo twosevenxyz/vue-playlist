@@ -33,7 +33,9 @@
     <div class="options-container dropdown" :class="{'is-active': showOptions}">
       <div class="options-btn-container">
         <slot name="options-btn">
-          <i-mdi-dots-vertical class="options-btn" @click="toggleOptions()"/>
+          <span class="options-btn" @click="toggleOptions()">
+            <i-mdi-dots-vertical />
+          </span>
         </slot>
       </div>
       <div class="dropdown-menu">
