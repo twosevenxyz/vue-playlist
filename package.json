@@ -1,9 +1,9 @@
 {
   "name": "@gurupras/vue-playlist",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "type": "module",
-  "module": "dist/playlist.js",
-  "main": "dist/playlist.cjs",
+  "module": "dist/vue-playlist.js",
+  "main": "dist/vue-playlist.cjs",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -46,6 +46,7 @@
     "./style.css": "./dist/style.css",
     "./src/components/base-playlist.vue": "./src/components/base-playlist.vue",
     "./src/components/media-playlist-item.vue": "./src/components/media-playlist-item.vue",
-    ".": "./dist/playlist.js"
+    ".": "./dist/vue-playlist.js",
+    "./dist/*": "./dist/*"
   }
 }
